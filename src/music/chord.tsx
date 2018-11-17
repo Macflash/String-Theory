@@ -4,6 +4,7 @@ import { MajorThird, Fifth, MinorThird } from './interval';
 
 // Chords are a set of TONES
 // The first TONE is considered the root
+// For other tones, should be "3rd"-type, followed by "5th"-type and then any extensions or additional notes after that
 export default class chord {
     private name?: string;
     private tones: tone[];
