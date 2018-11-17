@@ -4,7 +4,9 @@ import * as tone from './tone';
 export const Unison = 0;
 
 export const MinorSecond = 1;
+export const Half = 1;
 export const MajorSecond = 2;
+export const Whole = 2;
 
 export const MinorThird = 3;
 export const MajorThird = 4;
