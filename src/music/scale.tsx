@@ -1,7 +1,7 @@
 import React from 'react';
 import tone from './tone';
 import chord from './chord';
-import { Whole, Half } from './interval';
+import { Whole as W, Half as h } from './interval';
 
 // Scale is a set of TONES
 // Scale tones should be ORDERED
@@ -42,6 +42,33 @@ export default class scale {
     }
 
     public static Major(root: tone): scale {
-        return this.BuildScale([Whole, Whole, Half, Whole, Whole, Whole, Half ], root, "Major");
+        return this.BuildScale([W, W, h, W, W, W, h], root, "Major");
+    }
+
+    public static Minor(root: tone): scale {
+        return this.BuildScale([W, h, W, W, h, W, W], root, "Minor");
+    }
+
+    public static Dorian(root: tone): scale {
+        return this.BuildScale([W, h, W, W, W, h, W], root, "Dorian");
+    }
+
+    public static Phyrgian(root: tone): scale {
+        return this.BuildScale([h,W,W,W,h,W,W], root, "Phyrgian");
+    }
+    
+    public static Lydian(root: tone): scale {
+        return this.BuildScale([W,W,W,h,W,W,h], root, "Lydian");
+    }
+    
+    public static Mixolydian(root: tone): scale {
+        return this.BuildScale([W,W,h,W,W,h,W], root, "Mixolydian");
+    }
+    
+    public static Aeolian(root: tone): scale {
+        return this.BuildScale([W,h,W,W,h,W,W], root, "Aeolian");
+    }
+    public static Locrian(root: tone): scale {
+        return this.BuildScale([h,W,W,h,W,W,W], root, "Locrian");
     }
 }
