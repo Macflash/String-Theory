@@ -14,16 +14,21 @@ export default class scale {
         this.name = name;
     }
 
+
+    public Name(): string | undefined {
+        return this.name;
+    }
+
     // 0 based index is a little weird for music notation
     // For now simply generate the standard triads
     // TODO: update the names for these chords to be more legible
     public Triads(): chord[] {
         let chords: chord[] = [];
-        for (let i = 0; i < scale.length; i++) {
+        for (let i = 0; i < this.tones.length; i++) {
             chords.push(new chord([
                 this.tones[i],
-                this.tones[(i + 1) % 12],
-                this.tones[(i + 2) % 12],
+                this.tones[(i + 2) % this.tones.length],
+                this.tones[(i + 4) % this.tones.length],
             ], (i + 1).toString()));
         }
 
@@ -32,12 +37,12 @@ export default class scale {
 
     public Quads(): chord[] {
         let chords: chord[] = [];
-        for (let i = 0; i < scale.length; i++) {
+        for (let i = 0; i < this.tones.length; i++) {
             chords.push(new chord([
                 this.tones[i],
-                this.tones[(i + 1) % 12],
-                this.tones[(i + 2) % 12],
-                this.tones[(i + 3) % 12],
+                this.tones[(i + 2) % this.tones.length],
+                this.tones[(i + 4) % this.tones.length],
+                this.tones[(i + 6) % this.tones.length],
             ], (i + 1).toString()));
         }
 
@@ -47,10 +52,13 @@ export default class scale {
     private static BuildScale(intervals: number[], root: tone, name?: string): scale {
         var tones: tone[] = [];
         let currentTone = root;
+        console.log(intervals);
         for (var i = 0; i < intervals.length; i++) {
             tones.push(currentTone);
-            currentTone.addInterval(intervals[i]);
+            currentTone = currentTone.addInterval(intervals[i]);
         }
+
+        console.log(tones);
 
         return new scale(tones, name);
     }
@@ -90,8 +98,11 @@ export default class scale {
 export class Scale extends PureComponent<{}> {
     render() {
         var s = scale.Major(new tone(0));
+        console.log(s);
         var chords = s.Triads();
+        console.log(chords);
         return <div>
+            <div>{s.Name()}</div>
             {chords.map((c, i) => <div key={i}>{c.toString()}</div>)}
         </div>;
     }
