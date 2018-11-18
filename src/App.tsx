@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Scale } from './music/scale';
+import { ScaleComponent } from './core/music/scale';
 
 class App extends Component {
   render() {
@@ -11,7 +10,7 @@ class App extends Component {
           <p>
             string-theory
           </p>
-          <Scale />
+          <ScaleComponent />
         </header>
       </div>
     );

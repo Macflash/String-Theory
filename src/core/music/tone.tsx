@@ -3,17 +3,17 @@ import React from 'react';
 export const sharpNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 export const flatNames =  ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
-export default class tone {
+export default class Tone {
     private note: number;
     constructor (note: number){
         this.note = note % 12;
     }
 
-    public addInterval(interval: number): tone {
-        return new tone(this.note + interval);
+    public addInterval(interval: number): Tone {
+        return new Tone(this.note + interval);
     }
 
-    public static Parse(name: string): tone {
+    public static Parse(name: string): Tone {
         throw "todo";
     }
 
