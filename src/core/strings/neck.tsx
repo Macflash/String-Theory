@@ -4,7 +4,7 @@ import Note from '../music/note';
 
 export class Neck {
     // The root NOTES of the strings
-    private strings: String[];
+    public strings: String[];
 
     // The number of frets on each string
     private frets: number;

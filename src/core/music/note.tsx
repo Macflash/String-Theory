@@ -26,6 +26,6 @@ export default class Note {
         }
 
         var register = parseInt(input.substring(names[tone].length));
-        return tone + register;
+        return tone + (register*12);
     }
 }
