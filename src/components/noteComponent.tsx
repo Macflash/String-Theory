@@ -49,8 +49,8 @@ const mapStateToProps = (state: IStringTheoryState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
     return {
-        selectNote: (note: number) => dispatch(noteAction(NoteActions.Select, note)),
-        deselectNote: (note: number) => dispatch(noteAction(NoteActions.SelectEnd, note)),
+        selectNote: (note: number) => dispatch(noteAction(NoteActions.Select, [note])),
+        deselectNote: (note: number) => dispatch(noteAction(NoteActions.SelectEnd, [note])),
     };
 }
 

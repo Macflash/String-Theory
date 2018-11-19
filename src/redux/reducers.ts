@@ -1,7 +1,7 @@
-import {combineReducers, AnyAction, createStore} from 'redux';
-import { INoteAction, NoteActions } from './actions';
+import { combineReducers, AnyAction, createStore } from 'redux';
+import { NoteActions, INoteAction } from './actions';
 
-export type INoteLookup = {[note: number]: boolean | undefined };
+export type INoteLookup = { [note: number]: boolean | undefined };
 
 export interface IStringTheoryState {
     selectedNotes: INoteLookup;
@@ -9,18 +9,52 @@ export interface IStringTheoryState {
 }
 
 function selectedNotes(state: INoteLookup | undefined, action: AnyAction): INoteLookup {
-    switch(action.type){
+    if (!state) { return {}; }
+    switch (action.type) {
         case NoteActions.Select:
-            let newState = {...state} as INoteLookup;
-            newState[action.note] = true;
-            return newState;
         case NoteActions.SelectEnd:
-            let newState2 = {...state} as INoteLookup;
-            delete newState2[action.note];
-            return newState2;
+            let selectState = { ...state } as INoteLookup;
+            let selectAction = action as INoteAction;
+            for (let note of selectAction.notes) {
+                if (selectAction.type == NoteActions.Select) {
+                    console.log("adding note " + note);
+                    selectState[note] = true;
+                }
+                else {
+                    console.log("deleting note " + note);
+                    delete selectState[note];
+                }
+            }
+
+            console.log(selectState);
+            return selectState;
+        case NoteActions.Reset:
+            return {};
+        case NoteActions.Toggle:
+            let toggleState = { ...state } as INoteLookup;
+            let toggleAction = action as INoteAction;
+            let add = false;
+            // if all the notes being toggled are enabled, remove them all, otherwise add the remaining ones
+            for (let note of toggleAction.notes) {
+                if (!state[note]) {
+                    add = true;
+                    break;
+                }
+            }
+
+            for (let note of toggleAction.notes) {
+                if (add) {
+                    toggleState[note] = true;
+                }
+                else {
+                    delete toggleState[note];
+                }
+            }
+            
+            return toggleState;
     }
 
-    return state || {};
+    return state;
 }
 
 const appReducers = combineReducers<IStringTheoryState>({

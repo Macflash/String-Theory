@@ -1,17 +1,48 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Dispatch } from 'react';
 import Scale from '../../theory/music/scale';
+import { IStringTheoryState, INoteLookup } from '../../redux/reducers';
+import { AnyAction } from 'redux';
+import { noteAction, NoteActions } from '../../redux/actions';
+import { connect } from 'react-redux';
+import Tone from '../../theory/music/tone';
 
 export interface IScaleProps {
     scale: Scale;
+    selectedNotes: INoteLookup;
+    toggleScale: (notes: number[]) => void;
 }
 
-export default class ScaleComponent extends PureComponent<IScaleProps> {
+class ScaleComponent extends PureComponent<IScaleProps> {
+    private onClick = () => {
+        this.props.toggleScale(this.props.scale.tones.map(t => t.note));
+    }
+
     render() {
-        return <div>
-            {this.props.scale.toString()}
-        </div>
+        const selected = Tone.isMatch(this.props.scale.tones, this.props.selectedNotes);
+
+        return (
+            selected ?
+                <div onClick={this.onClick} style={{ cursor: "pointer" }} >
+                    {this.props.scale.toString()}
+                </div>
+                : null);
     }
 }
+
+const mapStateToProps = (state: IStringTheoryState) => {
+    return { selectedNotes: state.selectedNotes };
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+    return {
+        toggleScale: (notes: number[]) => dispatch(noteAction(NoteActions.Toggle, notes)),
+    };
+}
+
+const ConnectedScale = connect(mapStateToProps, mapDispatchToProps)(ScaleComponent);
+
+export default ConnectedScale;
+
 
 export interface IScaleListProps {
     scales: Scale[];
@@ -20,7 +51,7 @@ export interface IScaleListProps {
 export class ScaleListComponent extends PureComponent<IScaleListProps>{
     render() {
         return <div>
-            {this.props.scales.map((scale, i) => <ScaleComponent key={i} scale={scale} />)}
+            {this.props.scales.map((scale, i) => <ConnectedScale key={i} scale={scale} />)}
         </div>;
     }
 }

@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import Tone from './tone';
 import chord from './chord';
 import { Whole as W, Half as h } from './interval';
+import { INoteLookup } from '../../redux/reducers';
 
 // Scale is a set of TONES
 // Scale tones should be ORDERED
 // E.G. the 3rd of the scale is the 3rd item in the list
 export default class Scale {
     private name?: string;
-    private tones: Tone[];
+    public tones: Tone[];
     constructor(tones: Tone[], name?: string) {
         this.tones = tones;
         this.name = name;
@@ -26,9 +27,17 @@ export default class Scale {
         return this.name + ": " + this.tones.map(tone => tone.toString()).join(",");
     }
 
-    // 0 based index is a little weird for music notation
-    // For now simply generate the standard triads
-    // TODO: update the names for these chords to be more legible
+    public isMatch(selectedNotes: INoteLookup): boolean {
+        // two conditions:
+        // ALL notes in the scale or chord match, always returns tru
+
+
+        // ALL selected notes BELONG to the scale or chord
+
+
+        return false;
+    }
+
     public Triads(): chord[] {
         let chords: chord[] = [];
         for (let i = 0; i < this.tones.length; i++) {
@@ -63,8 +72,6 @@ export default class Scale {
             tones.push(currentTone);
             currentTone = currentTone.addInterval(intervals[i]);
         }
-
-        console.log(tones);
 
         return new Scale(tones, tones[0] + " " + name);
     }

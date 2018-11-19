@@ -8,14 +8,14 @@ export enum NoteActions {
     Select,
     SelectEnd,
     Reset,
+    Toggle,
 }
 
 export interface INoteAction {
     type: NoteActions;
-    note: number;
+    notes: number[];
 }
 
-export function noteAction(type: NoteActions, note: number): INoteAction {
-    console.log("note action");
-    return { type, note };
+export function noteAction(type: NoteActions, notes: number[]): INoteAction {
+    return { type, notes };
 }
