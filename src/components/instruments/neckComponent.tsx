@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Neck } from '../../theory/instruments/neck';
+import { Neck } from '../../theory/instruments/strings/neck';
 import StringComponent from './stringComponent';
 
 export interface INeckProps {

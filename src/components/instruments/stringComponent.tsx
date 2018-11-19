@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import String from '../../theory/instruments/string';
+import String from '../../theory/instruments/strings/string';
 import FretComponent from './fretComponent';
 
 export interface IStringProps {

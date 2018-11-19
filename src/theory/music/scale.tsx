@@ -27,17 +27,6 @@ export default class Scale {
         return this.name + ": " + this.tones.map(tone => tone.toString()).join(",");
     }
 
-    public isMatch(selectedNotes: INoteLookup): boolean {
-        // two conditions:
-        // ALL notes in the scale or chord match, always returns tru
-
-
-        // ALL selected notes BELONG to the scale or chord
-
-
-        return false;
-    }
-
     public Triads(): chord[] {
         let chords: chord[] = [];
         for (let i = 0; i < this.tones.length; i++) {

@@ -57,11 +57,18 @@ export default class Chord {
         return new Chord([root, root.addInterval(MinorThird), root.addInterval(Fifth), root.addInterval(MajorSeventh)], "Mm7");
     }
 
+    // Basic Two Note Chords
+    public static Power(root: Tone): Chord {
+        return new Chord([root, root.addInterval(Fifth)], "5");
+    }
+
     public static BuildAllChords(): Chord[] {
         let chords: Chord[] = [];
 
         for (let i = 0; i < 12; i++) {
             const tone = new Tone(i);
+            chords.push(Chord.Power(tone));
+
             chords.push(Chord.Major(tone));
             chords.push(Chord.Minor(tone));
 

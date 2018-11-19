@@ -56,6 +56,11 @@ export default class Tone {
         return true;
     }
 
+    public matchNote(note: number | null):boolean {
+        if(note == null){ return false; }
+        return this.note == (note % 12);
+    }
+
     public static isMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
         if(Tone.FullMatch(tones, selectedNotes)){
             return true;
