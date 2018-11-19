@@ -14,6 +14,7 @@ export const MajorThird = 4;
 export const Fourth = 5;
 
 export const Tritone = 6;
+export const DiminishedFifth = 6;
 
 export const Fifth = 7;
 export const AugmentedFifth = 8;

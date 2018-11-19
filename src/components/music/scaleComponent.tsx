@@ -56,6 +56,7 @@ export interface IScaleListProps {
 export class ScaleListComponent extends PureComponent<IScaleListProps>{
     render() {
         return <div>
+            <h3>Scales</h3>
             {this.props.scales.map((scale, i) => <ConnectedScale key={i} scale={scale} />)}
         </div>;
     }

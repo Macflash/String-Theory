@@ -18,8 +18,8 @@ export default class MainComponent extends PureComponent {
     render(){
         return <div style={{display: "flex", flexDirection: "row"}}>
                 <NeckComponent neck={Guitar} />
-                <ScaleListComponent scales={this.scales} />
                 <ChordListComponent chords={this.chords} />
+                <ScaleListComponent scales={this.scales} />
             </div>;
     }
 }

@@ -56,6 +56,7 @@ export interface IChordListProps {
 export class ChordListComponent extends PureComponent<IChordListProps>{
     render() {
         return <div>
+            <h3>Chords</h3>
             {this.props.chords.map((chord, i) => <ConnectedChord key={i} chord={chord} />)}
         </div>;
     }
