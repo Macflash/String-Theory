@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import String from '../core/strings/string';
-import Note from '../core/music/note';
-import NoteComponent from './noteComponent';
+import NoteComponent from '../noteComponent';
 
 export interface IFretProps {
     note: number;
