@@ -1,3 +1,5 @@
+import { AnyAction } from "redux";
+
 export type Actions = NoteActions;
 
 export enum NoteActions {
@@ -14,5 +16,6 @@ export interface INoteAction {
 }
 
 export function noteAction(type: NoteActions, note: number): INoteAction {
+    console.log("note action");
     return { type, note };
 }

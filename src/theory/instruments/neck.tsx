@@ -22,7 +22,7 @@ export const Guitar = new Neck([
     Note.parse("G3"),
     Note.parse("B3"),
     Note.parse("E4"),
-], 18);
+], 15);
 
 export const Bass = new Neck([
     Note.parse("E1"),
