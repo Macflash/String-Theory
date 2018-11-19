@@ -23,7 +23,7 @@ export default class Scale {
     }
 
     public toString(flat?: boolean){
-        return this.name + " scale" + this.tones.map(tone => tone.toString()).join(",");
+        return this.name + ": " + this.tones.map(tone => tone.toString()).join(",");
     }
 
     // 0 based index is a little weird for music notation
@@ -59,7 +59,6 @@ export default class Scale {
     private static BuildScale(intervals: number[], root: Tone, name?: string): Scale {
         var tones: Tone[] = [];
         let currentTone = root;
-        console.log(intervals);
         for (var i = 0; i < intervals.length; i++) {
             tones.push(currentTone);
             currentTone = currentTone.addInterval(intervals[i]);
@@ -67,7 +66,7 @@ export default class Scale {
 
         console.log(tones);
 
-        return new Scale(tones, name);
+        return new Scale(tones, tones[0] + " " + name);
     }
 
     public static Major(root: Tone): Scale {
@@ -97,7 +96,26 @@ export default class Scale {
     public static Aeolian(root: Tone): Scale {
         return this.BuildScale([W, h, W, W, h, W, W], root, "Aeolian");
     }
+    
     public static Locrian(root: Tone): Scale {
         return this.BuildScale([h, W, W, h, W, W, W], root, "Locrian");
+    }
+
+    public static BuildAllScales(): Scale[] {
+        var scales: Scale[] = [];
+
+        for(var i = 0; i < 12; i++){
+            const tone = new Tone(i);
+            scales.push(Scale.Major(tone));
+            scales.push(Scale.Minor(tone));
+            scales.push(Scale.Dorian(tone));
+            scales.push(Scale.Phyrgian(tone));
+            scales.push(Scale.Lydian(tone));
+            scales.push(Scale.Mixolydian(tone));
+            scales.push(Scale.Aeolian(tone));
+            scales.push(Scale.Locrian(tone));
+        }
+
+        return scales;
     }
 }
