@@ -23,23 +23,27 @@ export default class Tone {
         return names[this.note];
     }
 
-    public static isMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
-        // two conditions:
-        // ALL notes in the scale or chord match, always returns true
-        let allTonesMatch = true;
+    public static FullMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
         let selectedTones: {[tone: number]: boolean} = {};
         for(let note of Object.keys(selectedNotes)){
             selectedTones[parseInt(note) % 12] = true;
         }
 
-        // check if ALL tones match
+        // check if ALL tones in the chord are matched
         for(let tone of tones){
             if(!selectedTones[tone.note]){
-                allTonesMatch = false;
+                return false;
             }
         }
 
-        if(allTonesMatch){ return true; }
+        return true;
+    }
+    
+    public static PartialMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
+        let selectedTones: {[tone: number]: boolean} = {};
+        for(let note of Object.keys(selectedNotes)){
+            selectedTones[parseInt(note) % 12] = true;
+        }
 
         // ALL selected notes BELONG to the scale or chord
         var toneNotes = tones.map(t => t.note.toString());
@@ -50,5 +54,17 @@ export default class Tone {
         }
 
         return true;
+    }
+
+    public static isMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
+        if(Tone.FullMatch(tones, selectedNotes)){
+            return true;
+        }
+
+        if(Tone.PartialMatch(tones, selectedNotes)){
+            return true;
+        }
+
+        return false;
     }
 }

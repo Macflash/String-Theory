@@ -7,15 +7,15 @@ import { MajorThird, Fifth, MinorThird } from './interval';
 // For other tones, should be "3rd"-type, followed by "5th"-type and then any extensions or additional notes after that
 export default class Chord {
     private name?: string;
-    private tones: Tone[];
+    public tones: Tone[];
 
-    constructor(tones: Tone[], name?: string){
+    constructor(tones: Tone[], name?: string) {
         this.tones = tones;
         this.name = name;
     }
 
     public toString(flat?: boolean): string {
-        return this.name + ": " + this.tones.map(t => t.toString(flat)).join(",");
+        return this.tones[0].toString() + " " + this.name + ": " + this.tones.map(t => t.toString(flat)).join(",");
     }
 
     public static Major(root: Tone): Chord {
@@ -24,5 +24,17 @@ export default class Chord {
 
     public static Minor(root: Tone): Chord {
         return new Chord([root, root.addInterval(MinorThird), root.addInterval(Fifth)], "Min");
+    }
+
+    public static BuildAllChords(): Chord[] {
+        let chords: Chord[] = [];
+
+        for (let i = 0; i < 12; i++) {
+            const tone = new Tone(i);
+            chords.push(Chord.Major(tone));
+            chords.push(Chord.Minor(tone));
+        }
+
+        return chords;
     }
 }

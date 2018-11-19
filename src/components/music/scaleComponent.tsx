@@ -18,11 +18,17 @@ class ScaleComponent extends PureComponent<IScaleProps> {
     }
 
     render() {
-        const selected = Tone.isMatch(this.props.scale.tones, this.props.selectedNotes);
+        const fullMatch = Tone.FullMatch(this.props.scale.tones, this.props.selectedNotes);
+        const partialMatch = Tone.PartialMatch(this.props.scale.tones, this.props.selectedNotes);
 
         return (
-            selected ?
-                <div onClick={this.onClick} style={{ cursor: "pointer" }} >
+            (fullMatch || partialMatch) ?
+                <div
+                    onClick={this.onClick}
+                    style={{
+                        cursor: "pointer",
+                        color: fullMatch ? "green" : "",
+                    }} >
                     {this.props.scale.toString()}
                 </div>
                 : null);
@@ -42,7 +48,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
 const ConnectedScale = connect(mapStateToProps, mapDispatchToProps)(ScaleComponent);
 
 export default ConnectedScale;
-
 
 export interface IScaleListProps {
     scales: Scale[];
