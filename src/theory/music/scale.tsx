@@ -22,6 +22,10 @@ export default class Scale {
         return this.name;
     }
 
+    public toString(flat?: boolean){
+        return this.name + " scale" + this.tones.map(tone => tone.toString()).join(",");
+    }
+
     // 0 based index is a little weird for music notation
     // For now simply generate the standard triads
     // TODO: update the names for these chords to be more legible
@@ -95,16 +99,5 @@ export default class Scale {
     }
     public static Locrian(root: Tone): Scale {
         return this.BuildScale([h, W, W, h, W, W, W], root, "Locrian");
-    }
-}
-
-export class ScaleComponent extends PureComponent<{}> {
-    render() {
-        var s = Scale.Mixolydian(new Tone(0));
-        var chords = s.Quads();
-        return <div>
-            <div>{s.Root() + " " + s.Name()}</div>
-            {chords.map((c, i) => <div key={i}>{c.toString()}</div>)}
-        </div>;
     }
 }

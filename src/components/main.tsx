@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import NeckComponent from './strings/neckComponent';
-import { Guitar } from '../core/strings/neck';
+import NeckComponent from './instruments/neckComponent';
+import { Guitar } from '../theory/instruments/neck';
 
 export default class MainComponent extends PureComponent {
     render(){

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Note from '../core/music/note';
+import Note from '../theory/music/note';
 
 export interface INoteProps {
     note: number;
