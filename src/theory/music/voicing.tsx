@@ -2,12 +2,13 @@ import React from 'react';
 import Tone from './tone';
 import { INoteLookup } from '../../redux/reducers';
 
+// VOICING is a SET of NOTES
+// CHORD is a list of TONES
 export default class Voicing {
     public notes: number[];
     public noteLookup: INoteLookup;
 
     constructor(notes: number[]) {
-        // TODO: de-dupe and sort this (add a look up too)
         this.notes = notes;
         this.noteLookup = {} as INoteLookup;
         for(let note of this.notes){
