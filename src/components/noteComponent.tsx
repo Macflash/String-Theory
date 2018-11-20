@@ -16,10 +16,10 @@ class NoteComponent extends PureComponent<INoteProps> {
     private onClick = () => {
         const selectedNote = this.props.selectedNotes[this.props.note];
         const selectedTone = this.props.selectedNotes[this.props.note % 12];
-        if(selectedNote){
+        if (selectedNote) {
             this.props.deselectNote(this.props.note);
         }
-        else{
+        else {
             this.props.selectNote(this.props.note);
         }
     }
@@ -27,6 +27,7 @@ class NoteComponent extends PureComponent<INoteProps> {
     render() {
         const selectedNote = this.props.selectedNotes[this.props.note];
         const selectedTone = this.props.selectedNotes[this.props.note % 12];
+
 
         return <div
             onClick={this.onClick}
