@@ -14,8 +14,9 @@ export interface INoteProps {
 
 class NoteComponent extends PureComponent<INoteProps> {
     private onClick = () => {
-        const selected = this.props.selectedNotes[this.props.note];
-        if(selected){
+        const selectedNote = this.props.selectedNotes[this.props.note];
+        const selectedTone = this.props.selectedNotes[this.props.note % 12];
+        if(selectedNote){
             this.props.deselectNote(this.props.note);
         }
         else{
@@ -24,7 +25,8 @@ class NoteComponent extends PureComponent<INoteProps> {
     }
 
     render() {
-        const selected = this.props.selectedNotes[this.props.note];
+        const selectedNote = this.props.selectedNotes[this.props.note];
+        const selectedTone = this.props.selectedNotes[this.props.note % 12];
 
         return <div
             onClick={this.onClick}
@@ -36,7 +38,7 @@ class NoteComponent extends PureComponent<INoteProps> {
                 fontSize: "15px",
                 width: "30px",
                 cursor: "pointer",
-                backgroundColor: selected ? "green" : "",
+                backgroundColor: selectedNote ? "green" : (selectedTone ? "lightblue" : ""),
             }}>
             <span style={{ textAlign: "center" }}>{Note.toString(this.props.note)}</span>
         </div>

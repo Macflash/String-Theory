@@ -1,7 +1,7 @@
 import { combineReducers, AnyAction, createStore } from 'redux';
 import { NoteActions, INoteAction } from './actions';
 
-export type INoteLookup = { [note: number]: boolean | undefined };
+export type INoteLookup = { [note: number]: number | boolean | undefined };
 
 export interface IStringTheoryState {
     selectedNotes: INoteLookup;

@@ -88,10 +88,6 @@ export default class Scale {
     public static Mixolydian(root: Tone): Scale {
         return this.BuildScale([W, W, h, W, W, h, W], root, "Mixolydian");
     }
-
-    public static Aeolian(root: Tone): Scale {
-        return this.BuildScale([W, h, W, W, h, W, W], root, "Aeolian");
-    }
     
     public static Locrian(root: Tone): Scale {
         return this.BuildScale([h, W, W, h, W, W, W], root, "Locrian");
@@ -108,7 +104,6 @@ export default class Scale {
             scales.push(Scale.Phyrgian(tone));
             scales.push(Scale.Lydian(tone));
             scales.push(Scale.Mixolydian(tone));
-            scales.push(Scale.Aeolian(tone));
             scales.push(Scale.Locrian(tone));
         }
 

@@ -57,6 +57,10 @@ export default class Chord {
         return new Chord([root, root.addInterval(MinorThird), root.addInterval(Fifth), root.addInterval(MajorSeventh)], "Mm7");
     }
 
+    // Extension chords
+    // TODO: how should we make the basic chords?
+    // How many base chords should we use for extensions?
+
     // Basic Two Note Chords
     public static Power(root: Tone): Chord {
         return new Chord([root, root.addInterval(Fifth)], "5");
