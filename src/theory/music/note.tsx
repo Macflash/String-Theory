@@ -5,12 +5,18 @@ import Tone, { sharpNames, flatNames } from './tone';
 // C0 is defined as 0
 // This aligns with standard MIDI notes
 export default class Note {
-    public static toString(note: number): string {
-        return (new Tone(note).toString()) + Math.floor(note / 12);
+    public note: number;
+
+    constructor(note: number){
+        this.note = note;
     }
 
-    public static toTone(note: number): Tone {
-        return new Tone(note);
+    public toString(): string {
+        return (new Tone(this.note).toString()) + Math.floor(this.note / 12);
+    }
+
+    public toTone(): Tone {
+        return new Tone(this.note);
     }
 
     public static parse(input: string): number {

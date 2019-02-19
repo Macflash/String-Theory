@@ -1,5 +1,5 @@
 import React from 'react';
-import { INoteLookup } from '../../redux/reducers';
+import { Lookup } from '../../redux/reducers';
 
 export const sharpNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 export const flatNames =  ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
@@ -23,7 +23,7 @@ export default class Tone {
         return names[this.note];
     }
 
-    public static FullMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
+    public static FullMatch(tones: Tone[], selectedNotes: Lookup): boolean {
         let selectedTones: {[tone: number]: boolean} = {};
         for(let note of Object.keys(selectedNotes)){
             selectedTones[parseInt(note) % 12] = true;
@@ -39,7 +39,7 @@ export default class Tone {
         return true;
     }
     
-    public static PartialMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
+    public static PartialMatch(tones: Tone[], selectedNotes: Lookup): boolean {
         let selectedTones: {[tone: number]: boolean} = {};
         for(let note of Object.keys(selectedNotes)){
             selectedTones[parseInt(note) % 12] = true;
@@ -61,7 +61,7 @@ export default class Tone {
         return this.note == (note % 12);
     }
 
-    public static isMatch(tones: Tone[], selectedNotes: INoteLookup): boolean {
+    public static isMatch(tones: Tone[], selectedNotes: Lookup): boolean {
         if(Tone.FullMatch(tones, selectedNotes)){
             return true;
         }

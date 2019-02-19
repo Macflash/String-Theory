@@ -1,31 +1,31 @@
 import React, { PureComponent } from 'react';
 import Note from '../../theory/music/note';
 import { connect } from 'react-redux';
-import { IStringTheoryState, INoteLookup } from '../../redux/reducers';
+import { IStringTheoryState, Lookup } from '../../redux/reducers';
 import { AnyAction, Dispatch } from 'redux';
-import { noteAction, NoteActions } from '../../redux/actions';
+import { toneAction, SelectionAction } from '../../redux/actions';
 import Tone from '../../theory/music/tone';
 
 export interface IToneProps {
     tone: Tone;
-    selectedNotes: INoteLookup;
-    selectTone: (note: number) => void;
-    deselectTone: (note: number) => void;
+    selectedTones: Lookup;
+    selectTone: (tone: Tone) => void;
+    deselectTone: (tone: Tone) => void;
 }
 
 class ToneComponent extends PureComponent<IToneProps> {
     private onClick = () => {
-        const selectedTone = this.props.selectedNotes[this.props.tone.note];
+        const selectedTone = this.props.selectedTones[this.props.tone.toString()];
         if (selectedTone) {
-            this.props.deselectTone(this.props.tone.note);
+            this.props.deselectTone(this.props.tone);
         }
         else {
-            this.props.selectTone(this.props.tone.note);
+            this.props.selectTone(this.props.tone);
         }
     }
 
     render() {
-        const selectedTone = this.props.selectedNotes[this.props.tone.note];
+        const selectedTone = this.props.selectedTones[this.props.tone.toString()];
         return <div
             onClick={this.onClick}
             style={{
@@ -44,13 +44,13 @@ class ToneComponent extends PureComponent<IToneProps> {
 }
 
 const mapStateToProps = (state: IStringTheoryState) => {
-    return { selectedNotes: state.selectedNotes };
+    return { selectedTones: state.tones };
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
     return {
-        selectTone: (note: number) => dispatch(noteAction(NoteActions.Select, [note])),
-        deselectTone: (note: number) => dispatch(noteAction(NoteActions.SelectEnd, [note])),
+        selectTone: (tone: Tone) => dispatch(toneAction(SelectionAction.Select, {[tone.toString()]: true})),
+        deselectTone: (tone: Tone) => dispatch(toneAction(SelectionAction.Select, {[tone.toString()]: false})),
     };
 }
 

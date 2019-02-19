@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import Tone from './tone';
 import chord from './chord';
 import { Whole as W, Half as h } from './interval';
-import { INoteLookup } from '../../redux/reducers';
+import { Lookup } from '../../redux/reducers';
 
 // Scale is a set of TONES
 // Scale tones should be ORDERED

@@ -1,64 +1,49 @@
 import { combineReducers, AnyAction, createStore } from 'redux';
-import { NoteActions, INoteAction } from './actions';
+import { SelectionAction, ISelectionPayload, applyLookup, NeckAction } from './actions';
+import { Neck, Guitar } from '../theory/instruments/strings/neck';
 
-export type INoteLookup = { [note: number]: number | boolean | undefined };
-
-export interface IStringTheoryState {
-    selectedNotes: INoteLookup;
-    //hoveredNotes: INoteLookup;
+export interface IFretLocation {
+    string: number;
+    fret: number;
 }
 
-function selectedNotes(state: INoteLookup | undefined, action: AnyAction): INoteLookup {
-    if (!state) { return {}; }
-    switch (action.type) {
-        case NoteActions.Select:
-        case NoteActions.SelectEnd:
-            let selectState = { ...state } as INoteLookup;
-            let selectAction = action as INoteAction;
-            for (let note of selectAction.notes) {
-                if (selectAction.type == NoteActions.Select) {
-                    console.log("adding note " + note);
-                    selectState[note] = true;
-                }
-                else {
-                    console.log("deleting note " + note);
-                    delete selectState[note];
-                }
-            }
+//export type Lookup = { [key: string]: number | boolean | undefined };
+export interface ICanLookup {
+    getKey(): string;
+}
 
-            console.log(selectState);
-            return selectState;
-        case NoteActions.Reset:
-            return {};
-        case NoteActions.Toggle:
-            let toggleState = { ...state } as INoteLookup;
-            let toggleAction = action as INoteAction;
-            let add = false;
-            // if all the notes being toggled are enabled, remove them all, otherwise add the remaining ones
-            for (let note of toggleAction.notes) {
-                if (!state[note]) {
-                    add = true;
-                    break;
-                }
-            }
+export class Lookup {
+    [key: string]: number | boolean | undefined;
+}
 
-            for (let note of toggleAction.notes) {
-                if (add) {
-                    toggleState[note] = true;
-                }
-                else {
-                    delete toggleState[note];
-                }
-            }
-            
-            return toggleState;
-    }
+export interface IStringTheoryState {
+    notes: Lookup;
+    tones: Lookup;
+    frets: Lookup;
+}
 
-    return state;
+function tones(state: Lookup | undefined, action: AnyAction): Lookup {
+    if (!state || action.type == SelectionAction.Reset) { return new Lookup(); }
+    if (!action.tones) { return state; }
+    return applyLookup(state, action.tones);
+}
+
+function notes(state: Lookup | undefined, action: AnyAction): Lookup {
+    if (!state || action.type == SelectionAction.Reset) { return new Lookup(); }
+    if (!action.notes) { return state; }
+    return applyLookup(state, action.notes);
+}
+
+function frets(state: Lookup | undefined, action: AnyAction): Lookup {
+    if (!state || action.type == SelectionAction.Reset) { return new Lookup(); }
+    if (!action.frets) { return state; }
+    return applyLookup(state, action.frets);
 }
 
 const appReducers = combineReducers<IStringTheoryState>({
-    selectedNotes,
+    tones,
+    notes,
+    frets,
 });
 
 export const AppStore = createStore(appReducers);

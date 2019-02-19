@@ -1,22 +1,33 @@
 import React from 'react';
 import Tone from '../../music/tone';
+import Note from '../../music/note';
+import Fret from './fret';
 
 export default class String {
     // The root NOTE of the open string
-    private root: number;
+    public root: Note;
+
+    // index of the string in the instrument
+    public stringIndex: number;
+
     // The number of frets on the string
     private frets: number;
 
-    constructor(root: number, frets: number) {
+    constructor(stringIndex: number, root: Note, frets: number) {
+        this.stringIndex = stringIndex;
         this.root = root;
         this.frets = frets;
     }
 
-    public Frets(): number[] {
-        var result: number[] = [];
+    public toString(): string {
+        return this.stringIndex + ":" + this.root.toString();
+    }
+
+    public Frets(): Fret[] {
+        var result: Fret[] = [];
 
         for (let i = 0; i < this.frets; i++) {
-            result.push(i + this.root);
+            result.push(new Fret(this, i));
         }
 
         return result;
@@ -31,7 +42,7 @@ export default class String {
             return null;
         }
 
-        return this.root + fret;
+        return this.root.note + fret;
     }
 
     public getFrets(tones: Tone[]): number[] {
