@@ -23,13 +23,23 @@ export default class MainComponent extends PureComponent {
         this.frettings = this.neck.GenerateFrettings(Chord.Major(new Tone(0)));
     }
     render() {
-        return <div style={{ display: "flex", flexDirection: "row" }}>
+        return <div style={{ display: "flex", flexDirection: "row", overflow: "auto", width: "100%", height: "100%", position: "absolute" }}>
             <ToneListComponent />
             <NeckComponent neck={this.neck} />
-            <ChordListComponent chords={this.chords} />
-            <ScaleListComponent scales={this.scales} />
-            <div>
-                {this.frettings.map((f, i) => <div key={i}>{f.frets.map(n => n == -1 ? "x" : n).join(",")}</div>)}
+
+            <div style={{ flex: "auto", display: "flex", flexDirection: "column" }}>
+                <div style={{ flex: "none", flexDirection: "row", display: "flex" }}>
+                    <h3 style={{ flex: "none" }}>Search</h3>
+                    <input type="text" style={{ flex: "auto", margin: "15px" }} />
+                </div>
+                <ChordListComponent chords={this.chords} />
+                <ScaleListComponent scales={this.scales} />
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto" }}>
+                    <h3 style={{ flex: "none" }}>Frettings</h3>
+                    <div style={{ flex: "auto", overflow: "auto" }}>
+                        {this.frettings.map((f, i) => <div key={i}>{f.frets.map(n => n == -1 ? "x" : n).join(",")}</div>)}
+                    </div>
+                </div>
             </div>
         </div>;
     }

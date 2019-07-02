@@ -55,9 +55,11 @@ export interface IChordListProps {
 
 export class ChordListComponent extends PureComponent<IChordListProps>{
     render() {
-        return <div>
-            <h3>Chords</h3>
-            {this.props.chords.map((chord, i) => <ConnectedChord key={i} chord={chord} />)}
+        return <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto" }}>
+            <h3 style={{ flex: "none" }}>Chords</h3>
+            <div style={{ flex: "auto", overflow: "auto" }}>
+                {this.props.chords.map((chord, i) => <ConnectedChord key={i} chord={chord} />)}
+            </div>
         </div>;
     }
 }

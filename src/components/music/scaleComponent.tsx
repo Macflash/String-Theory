@@ -55,9 +55,11 @@ export interface IScaleListProps {
 
 export class ScaleListComponent extends PureComponent<IScaleListProps>{
     render() {
-        return <div>
-            <h3>Scales</h3>
-            {this.props.scales.map((scale, i) => <ConnectedScale key={i} scale={scale} />)}
+        return <div style={{ flex: 1, minHeight: "33%", display: "flex", flexDirection: "column", overflow: "auto" }}>
+            <h3 style={{ flex: "none" }}>Scales</h3>
+            <div style={{ overflow: "auto", flex: "auto" }}>
+                {this.props.scales.map((scale, i) => <ConnectedScale key={i} scale={scale} />)}
+            </div>
         </div>;
     }
 }
