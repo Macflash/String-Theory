@@ -1,12 +1,11 @@
-import React, { PureComponent } from 'react';
-import Note from '../../theory/music/note';
+import React, { PureComponent, Dispatch } from 'react';
+import Scale from '../../theory/music/scale';
+import { IStringTheoryState, INoteLookup } from '../../redux/reducers';
+import { AnyAction } from 'redux';
+import { noteAction, NoteActions } from '../../redux/actions';
 import { connect } from 'react-redux';
-import { IStringTheoryState, Lookup } from '../../redux/reducers';
-import { AnyAction, Dispatch } from 'redux';
-import { toneAction, SelectionAction } from '../../redux/actions';
 import Tone from '../../theory/music/tone';
 
-/*
 export interface IScaleProps {
     scale: Scale;
     selectedNotes: INoteLookup;
@@ -62,4 +61,3 @@ export class ScaleListComponent extends PureComponent<IScaleListProps>{
         </div>;
     }
 }
-*/

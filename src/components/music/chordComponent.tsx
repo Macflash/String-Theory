@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
-import Note from '../../theory/music/note';
-import { connect } from 'react-redux';
-import { IStringTheoryState, Lookup } from '../../redux/reducers';
-import { AnyAction, Dispatch } from 'redux';
-import { toneAction, SelectionAction } from '../../redux/actions';
+import Chord from '../../theory/music/chord';
+import { INoteLookup, IStringTheoryState } from '../../redux/reducers';
 import Tone from '../../theory/music/tone';
+import { connect } from 'react-redux';
+import { Dispatch, AnyAction } from 'redux';
+import { noteAction, NoteActions } from '../../redux/actions';
 
-/*
 export interface IChordProps {
     chord: Chord;
     selectedNotes: INoteLookup;
@@ -62,4 +61,3 @@ export class ChordListComponent extends PureComponent<IChordListProps>{
         </div>;
     }
 }
-*/

@@ -19,7 +19,7 @@ export class Neck implements Instrument {
 
     constructor(roots: number[], frets: number, maxSpread = 5) {
         this.frets = frets;
-        this.strings = roots.map((root, i) => new String(i, new Note(root), frets));
+        this.strings = roots.map(root => new String(root, frets));
         this.maxSpread = maxSpread;
     }
 
